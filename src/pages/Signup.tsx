@@ -16,6 +16,7 @@ import {
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
 import useUserStore from '@/lib/store';
+import { BACKEND_URL } from '@/lib/config';
 
 interface Room {
     id: string;
@@ -153,7 +154,7 @@ const SignupPage = () => {
 
     try{
         setLoading(true);
-        const response = await axios.post('http://localhost:3000/api/user/student-signup', formdata, {
+        const response = await axios.post(`${BACKEND_URL}/user/student-signup`, formdata, {
             withCredentials: true,
         })
         console.log('Signup successful:', response.data);

@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import axios from 'axios';
 import { NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '@/lib/store';
+import { BACKEND_URL } from '@/lib/config';
 
 const LoginPage = () => {
   const [formData, setFormData] = useState({
@@ -41,7 +42,7 @@ const LoginPage = () => {
 
     try{
         setLoading(true);
-        const response = await axios.post('http://localhost:3000/api/user/student-login', formData, {
+        const response = await axios.post(`${BACKEND_URL}/user/student-login`, formData, {
             withCredentials: true,
         })
         setUser(response.data.user);
