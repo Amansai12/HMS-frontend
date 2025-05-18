@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Card,
   CardContent,
@@ -69,7 +69,7 @@ export default function HostelRoomManagement() {
   const [currentHostel, setCurrentHostel] = useState("");
   const [roomSearch, setRoomSearch] = useState("");
   const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
-  const [validationErrors, setValidationErrors] = useState<{
+  const [validationErrors, _] = useState<{
     hostelName?: string;
     latitude?: string;
     longitude?: string;
@@ -109,7 +109,7 @@ export default function HostelRoomManagement() {
     if (hostelName.trim()) {
       try {
         setHostelLoading(true)
-        const res = await axios.post(`${BACKEND_URL}/hostel`,{
+        await axios.post(`${BACKEND_URL}/hostel`,{
             name : hostelName,
             latitude,
             longitude
@@ -137,7 +137,7 @@ export default function HostelRoomManagement() {
     if (roomName.trim() && selectedHostel && capacity) {
       try {
         setRoomLoading(true)
-        const res = await axios.post(`${BACKEND_URL}/hostel/room`,{
+        await axios.post(`${BACKEND_URL}/hostel/room`,{
             name : roomName,
             hostelId : selectedHostel,
             capacity
