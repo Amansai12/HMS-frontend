@@ -109,6 +109,7 @@ const SignupPage = () => {
     
   };
   const handleRoomSelectChange = (value : string) => {
+    console.log(value)
     setFormData((prev) => ({
       ...prev,
       roomId: value,
@@ -337,7 +338,7 @@ const SignupPage = () => {
                     </div>
                     {filteredRooms.length > 0 ? (
                       filteredRooms.map((room) => (
-                        <SelectItem className='cursor-pointer' key={room.id} value={room.id}>
+                        <SelectItem className='cursor-pointer' key={room.id} value={room.name}>
                           {room.name}
                         </SelectItem>
                       ))
