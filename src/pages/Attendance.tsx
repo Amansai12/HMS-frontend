@@ -55,7 +55,6 @@ function Attendance() {
         );
         console.log(res.data)
         //alert("Your coords are : " + res.data.data.latitude)
-        alert(latitude)
         setStatus('success');
       } catch (err) {
         console.error('Attendance Error:', err);
@@ -64,6 +63,7 @@ function Attendance() {
         setStatus('error');
       } finally {
         setLoading(false);
+        alert(latitude)
       }
     }
     if(status == 'success'){
