@@ -49,7 +49,7 @@ type User = {
 export default function StudentDashboard(): JSX.Element {
   const [collapsed, setCollapsed] = useState<boolean>(false);
   const [showMobileSidebar, setShowMobileSidebar] = useState<boolean>(false);
-  const [activeItem, setActiveItem] = useState<MenuItemType>('dashboard');
+  const [activeItem, setActiveItem] = useState<MenuItemType>('outpass');
   const navigate = useNavigate();
   
   const toggleSidebar = (): void => {

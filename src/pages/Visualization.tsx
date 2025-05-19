@@ -83,6 +83,7 @@ const Visualization: React.FC = () => {
         }
         
         const data = await response.json();
+        console.log(data)
         setDashboardData(data);
         setError(null);
       } catch (err) {
@@ -276,8 +277,8 @@ const Visualization: React.FC = () => {
       <h1 className="text-3xl font-bold mb-8 text-center">Hostel Management Dashboard</h1>
       
       {/* Top row - Current stats summary */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
+      <div className="flex w-full gap-3 mb-4">
+        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-blue-600">
           <h2 className="text-lg font-semibold mb-4">Total Students</h2>
           <p className="text-4xl font-bold text-blue-600">
             {dashboardData.currentAttendanceDistribution.inCampus + 
@@ -285,18 +286,23 @@ const Visualization: React.FC = () => {
              dashboardData.currentAttendanceDistribution.leave}
           </p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
+        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-orange-500">
           <h2 className="text-lg font-semibold mb-4">Students Out</h2>
           <p className="text-4xl font-bold text-orange-500">
             {dashboardData.currentAttendanceDistribution.outing + 
              dashboardData.currentAttendanceDistribution.leave}
           </p>
         </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <h2 className="text-lg font-semibold mb-4">Outpasses Today</h2>
+        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-green-400">
+          <h2 className="text-lg font-semibold mb-4">Leaves Today</h2>
           <p className="text-4xl font-bold text-green-600">
-            {dashboardData.outpassStatistics.length > 0 ? 
-              dashboardData.outpassStatistics[dashboardData.outpassStatistics.length - 1].count : 0}
+            {dashboardData.currentAttendanceDistribution.leave}
+          </p>
+        </div>
+        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-purple-600">
+          <h2 className="text-lg font-semibold mb-4">Outings Today</h2>
+          <p className="text-4xl font-bold text-purple-600">
+            {dashboardData.currentAttendanceDistribution.outing}
           </p>
         </div>
       </div>
