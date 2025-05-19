@@ -1,4 +1,5 @@
 
+import { BACKEND_URL } from '@/lib/config';
 import useUserStore from '@/lib/store';
 import { Loader2 } from 'lucide-react';
 import React, { useEffect } from 'react'
@@ -11,7 +12,7 @@ function Logout() {
         const logout = async () => {
             try {
                 setLoading(true);
-                const response = await fetch('http://localhost:3000/api/user/logout', {
+                const response = await fetch(`${BACKEND_URL}/api/user/logout`, {
                     method: 'GET',
                     credentials: 'include',
                 });

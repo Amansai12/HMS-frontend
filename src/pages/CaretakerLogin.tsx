@@ -62,9 +62,9 @@ const CareTakerLoginPage = () => {
       <div className='w-full md:w-1/2 px-4 flex justify-center items-center max-w-[500px] mx-auto'>
       <Card className="w-full border-none shadow-none">
         <CardHeader className="space-y-">
-            <h1 className='text-blue-600 text-3xl font-bold text-center'>Hostelio</h1>
+            <h1 className='text-blue-600 text-3xl font-bold text-center'>Hostelio Admin Account</h1>
           <CardDescription className="text-center">
-            Log into your account to get started
+            Log into your caretaker or admin account to get started
           </CardDescription>
         </CardHeader>
         
