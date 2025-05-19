@@ -12,9 +12,9 @@ import {
   Legend,
   
 } from 'chart.js';
-import { Line, Bar,Doughnut } from 'react-chartjs-2';
-import { BACKEND_URL } from '@/lib/config';
+import { Line, Bar, Doughnut } from 'react-chartjs-2';
 import { Loader } from 'lucide-react';
+import { BACKEND_URL } from '@/lib/config';
 
 // Register ChartJS components
 ChartJS.register(
@@ -67,6 +67,8 @@ interface DashboardData {
   criticalPointsDistribution: CriticalPointsDistribution[];
 }
 
+
+
 const Visualization: React.FC = () => {
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -93,26 +95,26 @@ const Visualization: React.FC = () => {
     };
 
     fetchDashboardData();
-    
-    // Refresh dashboard every 5 minutes
-    const intervalId = setInterval(fetchDashboardData, 5 * 60 * 1000);
-    
-    return () => clearInterval(intervalId);
   }, []);
 
   if (loading) {
     return (
-    <div className="flex justify-center items-center h-[80vh] flex-col gap-1">
+      <div className="flex justify-center items-center min-h-screen flex-col gap-2 px-4">
         <Loader size={40} className='animate-spin' />
         <p className='text-center font-semibold text-gray-700'>Creating visualizations for you</p>
         <p className='text-center font-semibold text-gray-700'>please wait...</p>
-        .</div>);
+      </div>
+    );
   }
 
   if (error || !dashboardData) {
-    return <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-      Error loading dashboard: {error || 'No data received'}
-    </div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded max-w-md w-full">
+          Error loading dashboard: {error || 'No data received'}
+        </div>
+      </div>
+    );
   }
 
   // Prepare data for the attendance trends chart
@@ -145,6 +147,7 @@ const Visualization: React.FC = () => {
 
   const attendanceTrendsOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -184,6 +187,7 @@ const Visualization: React.FC = () => {
 
   const hostelOccupancyOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -218,6 +222,7 @@ const Visualization: React.FC = () => {
 
   const outpassStatisticsOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: 'top' as const,
@@ -259,9 +264,10 @@ const Visualization: React.FC = () => {
 
   const currentAttendanceOptions = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
-        position: 'top' as const,
+        position: 'bottom' as const,
       },
       title: {
         display: true,
@@ -270,61 +276,76 @@ const Visualization: React.FC = () => {
     },
   };
 
-  
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-8 text-center">Hostel Management Dashboard</h1>
-      
-      {/* Top row - Current stats summary */}
-      <div className="flex w-full gap-3 mb-4 flex-wrap">
-        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-blue-600">
-          <h2 className="text-lg font-semibold mb-4">Total Students</h2>
-          <p className="text-4xl font-bold text-blue-600">
-            {dashboardData.currentAttendanceDistribution.inCampus + 
-             dashboardData.currentAttendanceDistribution.outing + 
-             dashboardData.currentAttendanceDistribution.leave}
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-6 sm:py-8">
+        <h1 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-center text-gray-800">
+          Hostel Management Dashboard
+        </h1>
+        
+        {/* Top row - Current stats summary */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-blue-600 hover:shadow-lg transition-shadow">
+            <h2 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">Total Students</h2>
+            <p className="text-2xl sm:text-4xl font-bold text-blue-600">
+              {dashboardData.currentAttendanceDistribution.inCampus + 
+               dashboardData.currentAttendanceDistribution.outing + 
+               dashboardData.currentAttendanceDistribution.leave}
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-orange-500 hover:shadow-lg transition-shadow">
+            <h2 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">Students Out</h2>
+            <p className="text-2xl sm:text-4xl font-bold text-orange-500">
+              {dashboardData.currentAttendanceDistribution.outing + 
+               dashboardData.currentAttendanceDistribution.leave}
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-green-500 hover:shadow-lg transition-shadow">
+            <h2 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">Leaves Today</h2>
+            <p className="text-2xl sm:text-4xl font-bold text-green-600">
+              {dashboardData.currentAttendanceDistribution.leave}
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 border-l-4 border-purple-600 hover:shadow-lg transition-shadow">
+            <h2 className="text-sm sm:text-lg font-semibold mb-2 sm:mb-4 text-gray-700">Outings Today</h2>
+            <p className="text-2xl sm:text-4xl font-bold text-purple-600">
+              {dashboardData.currentAttendanceDistribution.outing}
+            </p>
+          </div>
         </div>
-        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-orange-500">
-          <h2 className="text-lg font-semibold mb-4">Students Out</h2>
-          <p className="text-4xl font-bold text-orange-500">
-            {dashboardData.currentAttendanceDistribution.outing + 
-             dashboardData.currentAttendanceDistribution.leave}
-          </p>
+        
+        {/* Main charts */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8 mb-6 sm:mb-8">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
+            <div className="h-64 sm:h-80">
+              <Line options={attendanceTrendsOptions} data={attendanceTrendsData} />
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
+            <div className="h-64 sm:h-80">
+              <Doughnut options={currentAttendanceOptions} data={currentAttendanceData} />
+            </div>
+          </div>
         </div>
-        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-green-400">
-          <h2 className="text-lg font-semibold mb-4">Leaves Today</h2>
-          <p className="text-4xl font-bold text-green-600">
-            {dashboardData.currentAttendanceDistribution.leave}
-          </p>
-        </div>
-        <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-purple-600">
-          <h2 className="text-lg font-semibold mb-4">Outings Today</h2>
-          <p className="text-4xl font-bold text-purple-600">
-            {dashboardData.currentAttendanceDistribution.outing}
-          </p>
+        
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6 sm:gap-8">
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
+            <div className="h-64 sm:h-80">
+              <Bar options={hostelOccupancyOptions} data={hostelOccupancyData} />
+            </div>
+          </div>
+          
+          <div className="bg-white rounded-lg shadow-md p-4 sm:p-6 hover:shadow-lg transition-shadow">
+            <div className="h-64 sm:h-80">
+              <Bar options={outpassStatisticsOptions} data={outpassStatisticsData} />
+            </div>
+          </div>
         </div>
       </div>
-      
-      {/* Main charts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <Line options={attendanceTrendsOptions} data={attendanceTrendsData} />
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <Doughnut options={currentAttendanceOptions} data={currentAttendanceData} />
-        </div>
-      </div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
-        <div className="bg-white rounded-lg shadow p-6">
-          <Bar options={hostelOccupancyOptions} data={hostelOccupancyData} />
-        </div>
-        <div className="bg-white rounded-lg shadow p-6">
-          <Bar options={outpassStatisticsOptions} data={outpassStatisticsData} />
-        </div>
-      </div>
-
     </div>
   );
 };
