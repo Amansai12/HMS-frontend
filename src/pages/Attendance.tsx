@@ -63,7 +63,7 @@ function Attendance() {
         setStatus('error');
       } finally {
         setLoading(false);
-        alert(latitude)
+        alert(latitude + " " + longitude)
       }
     }
     if(status == 'success'){
