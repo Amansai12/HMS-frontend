@@ -45,6 +45,7 @@ const SignupPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [profileImage, setProfileImage] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [hostelLoading,setHostelLoading] = useState(false)
   const [error, setError] = useState('');
   
   
@@ -55,11 +56,14 @@ const SignupPage = () => {
   useEffect(() => {
     const fetchHostels = async () => {
       try {
+        setHostelLoading(true)
         const response = await axios.get(`${BACKEND_URL}/hostel`);
         console.log('Hostels:', response.data);
         setHostels(response.data.hostels);
       } catch (error) {
         console.error('Error fetching hostels:', error);
+      }finally{
+        setHostelLoading(false)
       }
     };
 
@@ -290,13 +294,15 @@ const SignupPage = () => {
             </div>
 
             {/* Hostel and Room Selection */}
-            <div className="flex gap-3 w-full">
+            <div className="flex gap-3 w-full flex-col">
+              {hostelLoading && <p className='text-[12px] text-gray-500'>Fetching hostels...</p>}
               <div className="space-y-2 w-full">
                 <Label htmlFor="hostel">Hostel</Label>
                 <Select 
                   value={formData.hostelId} 
                   onValueChange={(value) => handleHostelSelectChange(value)}
                   required
+                  disabled={hostelLoading}
                 >
                   <SelectTrigger className='w-full cursor-pointer' id="hostel">
                     <SelectValue placeholder="Select a hostel" />
@@ -338,7 +344,7 @@ const SignupPage = () => {
                     </div>
                     {filteredRooms.length > 0 ? (
                       filteredRooms.map((room) => (
-                        <SelectItem className='cursor-pointer' key={room.id} value={room.name}>
+                        <SelectItem className='cursor-pointer' key={room.id} value={room.id}>
                           {room.name}
                         </SelectItem>
                       ))
