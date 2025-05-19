@@ -53,7 +53,9 @@ function Attendance() {
           { latitude, longitude },
           { withCredentials: true }
         );
-        console.log(res.data);
+        console.log(res.data)
+        //alert("Your coords are : " + res.data.data.latitude)
+        alert(latitude)
         setStatus('success');
       } catch (err) {
         console.error('Attendance Error:', err);
