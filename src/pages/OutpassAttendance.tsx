@@ -4,7 +4,7 @@ import axios from 'axios';
 import { CheckCircle2, Loader2, LucideMessageSquareWarning } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-function Attendance() {
+function OutpassAttendance() {
   const [status, setStatus] = useState<'checking' | 'success' | 'error' | 'denied' | 'unsupported'>('checking');
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState('');
@@ -49,7 +49,7 @@ function Attendance() {
     const giveAttendance = async () => {
       try {
         const res = await axios.post(
-          `${BACKEND_URL}/attendance`,
+          `${BACKEND_URL}/attendance/outpass`,
           { latitude, longitude },
           { withCredentials: true }
         );
@@ -111,4 +111,4 @@ function Attendance() {
   );
 }
 
-export default Attendance;
+export default OutpassAttendance;

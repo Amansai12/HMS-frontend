@@ -126,10 +126,10 @@ export default function GetAttendance() {
   return (
     <Card className="w-full rounded-sm border bg-white dark:bg-gray-950 p-2 px-0 md:p-4">
       <CardHeader>
-       <div className="flex w-full justify-between">
+       <div className="flex-col md:flex-row flex w-full justify-between">
        <div>
-        <CardTitle className="text-2xl font-bold">Attendance History</CardTitle>
-        <CardDescription>
+        <CardTitle className="text-2xl font-bold text-center md:text-left">Attendance History</CardTitle>
+        <CardDescription className="text-center md:text-left">
           Manage and search for student attendance information
         </CardDescription>
         </div>

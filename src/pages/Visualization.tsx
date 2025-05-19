@@ -83,7 +83,6 @@ const Visualization: React.FC = () => {
         }
         
         const data = await response.json();
-        console.log(data)
         setDashboardData(data);
         setError(null);
       } catch (err) {
@@ -277,7 +276,7 @@ const Visualization: React.FC = () => {
       <h1 className="text-3xl font-bold mb-8 text-center">Hostel Management Dashboard</h1>
       
       {/* Top row - Current stats summary */}
-      <div className="flex w-full gap-3 mb-4">
+      <div className="flex w-full gap-3 mb-4 flex-wrap">
         <div className="bg-white rounded-lg shadow p-6 w-full border-l-4 border-blue-600">
           <h2 className="text-lg font-semibold mb-4">Total Students</h2>
           <p className="text-4xl font-bold text-blue-600">

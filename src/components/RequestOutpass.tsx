@@ -412,19 +412,19 @@ export default function OutPassPage() {
                               <Calendar className="h-4 w-4 text-gray-500 mr-1 mt-0.5" />
                               <div>
                                 <p className="text-gray-500">From</p>
-                                <p className="font-medium">{formatDateTime(outpass.from)}</p>
+                                <p className="font-medium text-[12px] md:text-md">{formatDateTime(outpass.from)}</p>
                               </div>
                             </div>
                             <div className="flex items-start">
                               <Calendar className="h-4 w-4 text-gray-500 mr-1 mt-0.5" />
                               <div>
                                 <p className="text-gray-500">To</p>
-                                <p className="font-medium">{formatDateTime(outpass.to)}</p>
+                                <p className="font-medium text-[12px] md:text-md">{formatDateTime(outpass.to)}</p>
                               </div>
                             </div>
                             <div>
                               <p className="text-gray-500">Requested On</p>
-                              <p className="font-medium">{formatDateTime(outpass.createdAt)}</p>
+                              <p className="font-medium text-[12px] md:text-md">{formatDateTime(outpass.createdAt)}</p>
                             </div>
                             <div>
                               <p className="text-gray-500">Duration</p>

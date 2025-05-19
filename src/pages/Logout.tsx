@@ -1,10 +1,12 @@
 
+import useUserStore from '@/lib/store';
 import { Loader2 } from 'lucide-react';
 import React, { useEffect } from 'react'
 import { NavLink } from 'react-router-dom';
 
 function Logout() {
     const [loading, setLoading] = React.useState(false);
+    const clearUser = useUserStore((state) => state.clearUser)
     useEffect(() => {
         const logout = async () => {
             try {
@@ -15,6 +17,7 @@ function Logout() {
                 });
                 if (response.ok) {
                     localStorage.removeItem('role')
+                    clearUser()
                     window.location.href = '/';
                 } else {
                     console.error('Logout failed');

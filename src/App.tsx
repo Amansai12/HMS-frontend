@@ -13,6 +13,7 @@ import { BACKEND_URL } from "./lib/config"
 import { Loader2 } from "lucide-react"
 import CareTakerLoginPage from "./pages/CaretakerLogin"
 import Dashboard from "./pages/Dashboard"
+import OutpassAttendance from "./pages/OutpassAttendance"
 
 function App() {
   const [loading,setLoading] = useState(false)
@@ -70,6 +71,7 @@ function App() {
         <Route path="/reset-password" element={<Button variant="default">Reset Password</Button>} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/give-attendance" element={<Attendance />} />
+        <Route path="/give-outpassattendance" element={<OutpassAttendance />} />
       </Routes>
     </>
   )
