@@ -55,7 +55,7 @@ const SignupPage = () => {
   useEffect(() => {
     const fetchHostels = async () => {
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/hostel`);
+        const response = await axios.get(`${BACKEND_URL}/hostel`);
         console.log('Hostels:', response.data);
         setHostels(response.data.hostels);
       } catch (error) {
@@ -75,7 +75,7 @@ const SignupPage = () => {
       }
       
       try {
-        const response = await axios.get(`${BACKEND_URL}/api/hostels/${formData.hostelId}/rooms`);
+        const response = await axios.get(`${BACKEND_URL}/hostels/${formData.hostelId}/rooms`);
         setHostels(response.data);
       } catch (error) {
         console.error('Error fetching rooms:', error);
