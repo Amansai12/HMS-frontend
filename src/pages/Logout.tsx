@@ -12,7 +12,7 @@ function Logout() {
         const logout = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`${BACKEND_URL}/api/user/logout`, {
+                const response = await fetch(`${BACKEND_URL}/user/logout`, {
                     method: 'GET',
                     credentials: 'include',
                 });
