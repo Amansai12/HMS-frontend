@@ -14,7 +14,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import useUserStore from '@/lib/store';
 import { BACKEND_URL } from '@/lib/config';
 
@@ -53,6 +53,7 @@ const SignupPage = () => {
   const [rooms, setRooms] = useState<Room[]>([]);
   const [filteredRooms, setFilteredRooms] = useState<Room[]>([]);
   const setUser = useUserStore((state) => state.setUser)
+  const navigate = useNavigate()
   useEffect(() => {
     const fetchHostels = async () => {
       try {
@@ -162,10 +163,10 @@ const SignupPage = () => {
         const response = await axios.post(`${BACKEND_URL}/user/student-signup`, formdata, {
             withCredentials: true,
         })
-        console.log('Signup successful:', response.data);
         setUser(response.data.user)
         localStorage.setItem('role','STUDENT')
-        setError('');
+        setError(''); 
+        navigate('/')
     } catch (error) {
         console.error('Error during signup:', error);
         setError('An error occurred during signup. Please try again.');
